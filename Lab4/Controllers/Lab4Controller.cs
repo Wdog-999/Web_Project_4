@@ -21,11 +21,17 @@ namespace Lab4.Controllers
             return View();
         }
 
-        public IActionResult Waffles()
+        public IActionResult Waffles(int id = 1)
         {
-            var html = WaffleEngine.Html(paragraphs: 2, includeHeading: true, includeHeadAndBody: false);
-            ViewData["waffle"] = html;
-            return View();
+            object[] waffles = new object[id];
+            for (int i = 0; i < id; i++)
+            {
+                ViewData["d"] = WaffleEngine.Html(paragraphs: 2, includeHeading: true, includeHeadAndBody: false);
+                waffles[i] = ViewData["d"];
+            }
+            var model = waffles;
+            ViewData["id"] = id;
+            return View(model);
         }
     }
 }
