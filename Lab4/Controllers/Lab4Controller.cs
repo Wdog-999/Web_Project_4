@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Html;
 using WaffleGenerator;
 
 namespace Lab4.Controllers
@@ -23,11 +24,12 @@ namespace Lab4.Controllers
 
         public IActionResult Waffles(int id = 1)
         {
-            object[] waffles = new object[id];
+            HtmlString[] waffles = new HtmlString[id];
             for (int i = 0; i < id; i++)
             {
-                ViewData["d"] = WaffleEngine.Html(paragraphs: 2, includeHeading: true, includeHeadAndBody: false);
-                waffles[i] = ViewData["d"];
+                string d = WaffleEngine.Html(paragraphs: 2, includeHeading: true, includeHeadAndBody: false);
+                HtmlString e = new HtmlString(d);
+                waffles[i] = e;
             }
             var model = waffles;
             ViewData["id"] = id;
